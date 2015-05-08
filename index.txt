@@ -1,0 +1,7 @@
+term : termid
+termid : term
+
+doc: docid
+docid : doc
+
+termid: {(doic:termcount), doic:termcount), doic:termcount)}
