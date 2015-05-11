@@ -1,11 +1,18 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class Index {
@@ -23,12 +30,11 @@ public class Index {
 	//term: termid
 	private static Map<String, Integer> termToTermID = new HashMap<String, Integer>();
 	private static Integer termID  = 0;
-	
+
 	//docid: doc
 	private static Map<Integer, String> docIDToDoc = new HashMap<Integer, String>();
 	//doc: docid
 	private static Map<String, Integer> docToDocID = new HashMap<String, Integer>();
-	private static Integer docID = 0;
 
 	private static HashSet<String> stopWords()
 	{
@@ -64,11 +70,6 @@ public class Index {
 		return termID++; 
 	}
 
-	private static int docToID()
-	{
-		return docID++;
-	}
-
 	//get the termid: frequency for each doc and stored in ./index/filename
 	private static void processContent(String words, String fileName)
 	{
@@ -85,11 +86,7 @@ public class Index {
 					n = (n == null) ? 1: ++n;
 					docWordList.put(word, n);
 
-					Integer m = allWordList.get(word);
-					m = (m == null) ? 1: ++n;
-					allWordList.put(word, n);
-
-					if(m==1)
+					if(n==1)
 					{
 						++numWords;
 						int id = termToID();
@@ -103,14 +100,13 @@ public class Index {
 
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter("./index/" + fileName + ".txt");
+			writer = new PrintWriter("./frequency/" + fileName + ".txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("ERROR: processContent()" + "./index/" + fileName + ".txt" );
+			System.out.println("ERROR: processContent()" + "./frequency/" + fileName + ".txt" );
 		}
 		//	System.out.println(fileName);
-		writer.println(docToDocID.get(fileName));
 		for(Map.Entry<String,Integer> entry : docWordList.entrySet())
 		{
 			String key = entry.getKey();
@@ -123,7 +119,7 @@ public class Index {
 		docWordList = new HashMap<String, Integer>();
 	}
 
-	private static void processFile()
+	private static void frequencyProcess()
 	{
 		File folder = new File("./doc/");
 		File [] listOfFiles = folder.listFiles();
@@ -134,33 +130,57 @@ public class Index {
 			File file = listOfFiles[i];
 			String filename = file.getName();
 			Scanner wordSrc = null;
-			int docID = docToID();
-			docToDocID.put(filename, docID);
-			docIDToDoc.put(docID, filename);	
 
+			byte[] jsonData = null;
 			try {
-				wordSrc = new Scanner(new File("./doc/" + filename ));
-			} catch (FileNotFoundException e) {
+				jsonData = Files.readAllBytes(Paths.get("./doc/" + filename));
+			} catch (IOException e1) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("ERROR: processFile()" + "./doc/" + filename );
+				e1.printStackTrace();
+				System.out.println("READ FILE ERROR");
 			}
 
+			//create ObjectMapper instance
+			ObjectMapper objectMapper = new ObjectMapper();
+
+			//convert json string to object
+			Doc doc = null;
+			try {
+				doc = objectMapper.readValue(jsonData, Doc.class);
+			} catch (JsonParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println("ERROR AT JSON PARSE");
+			} catch (JsonMappingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println("ERROR AT JSON PARSE");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println("ERROR AT JSON PARSE");
+			}
+			
+			Integer  docid = Integer.parseInt(doc.getId().substring(0, doc.getId().indexOf(".")));
+			docToDocID.put(filename, docid);
+			docIDToDoc.put(docid, filename);	
+	
+
+			wordSrc = new Scanner(doc.getText());
+			
 			String text = "";
 			while(wordSrc.hasNextLine())
 			{
 				text += wordSrc.nextLine();
 			}
-			processContent(text, filename);
 			wordSrc.close();
-
-
+			processContent(text, filename);
 		}
 	}
 
 	public static void startIndex()
 	{
-		processFile();
+		frequencyProcess();
 		//		System.out.println("docIDToDoc: " + docIDToDoc.toString());
 		//		System.out.println("docToDocID: " + docToDocID.toString());
 		//		System.out.println("termIDToTerm: " + termIDToTerm.toString());
