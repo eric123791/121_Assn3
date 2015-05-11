@@ -49,7 +49,6 @@ public class Index {
 	}
 
 	public static HashSet<String> tokenize(File input) throws Exception {
-		// TODO Write body!
 		String path = input.getName();
 		Scanner  sc = new Scanner (new FileReader(path));
 		HashSet<String> result = new HashSet<String> ();
@@ -100,13 +99,18 @@ public class Index {
 
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter("./frequency/" + fileName + ".txt");
+			writer = new PrintWriter("./frequency/" + fileName);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			new File("./frequency").mkdirs();
+		}
+		
+		try {
+			writer = new PrintWriter("./frequency/" + fileName);
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("ERROR: processContent()" + "./frequency/" + fileName + ".txt" );
 		}
 		//	System.out.println(fileName);
+		
 		for(Map.Entry<String,Integer> entry : docWordList.entrySet())
 		{
 			String key = entry.getKey();
@@ -135,7 +139,6 @@ public class Index {
 			try {
 				jsonData = Files.readAllBytes(Paths.get("./doc/" + filename));
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				System.out.println("READ FILE ERROR");
 			}
@@ -148,15 +151,12 @@ public class Index {
 			try {
 				doc = objectMapper.readValue(jsonData, Doc.class);
 			} catch (JsonParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				System.out.println("ERROR AT JSON PARSE");
 			} catch (JsonMappingException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				System.out.println("ERROR AT JSON PARSE");
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				System.out.println("ERROR AT JSON PARSE");
 			}
@@ -188,11 +188,10 @@ public class Index {
 
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		startIndex();
 
-		//number of document is the size of the folder
-		//number of unique words is the size of the list of all doc word
+		//number of document: is the size of the folder
+		//number of unique words: is the size of the list of all doc word
 		//output index to disk
 		//time of the whole process
 
