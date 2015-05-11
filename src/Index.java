@@ -12,18 +12,24 @@ public class Index {
 
 	private static HashSet<String> stopWordsList = stopWords();
 	static Integer numWords = 0;
-	
-	public static Map<String, Integer> allWordList = new HashMap<String, Integer>();
+
+	//termid:{[docid, frequency], [docid, frequency],....... }
+	public static Map<String, Map<String, Integer>> allWordList = new HashMap<String, Map<String, Integer>>();
+	//termid: frequency 
 	public static Map<String, Integer> docWordList = new HashMap<String, Integer>();
-	
+
+	//termid: term
 	private static Map<Integer, String> termIDToTerm = new HashMap<Integer, String>();
+	//term: termid
 	private static Map<String, Integer> termToTermID = new HashMap<String, Integer>();
 	private static Integer termID  = 0;
 	
+	//docid: doc
 	private static Map<Integer, String> docIDToDoc = new HashMap<Integer, String>();
+	//doc: docid
 	private static Map<String, Integer> docToDocID = new HashMap<String, Integer>();
 	private static Integer docID = 0;
-	
+
 	private static HashSet<String> stopWords()
 	{
 		try{
@@ -35,7 +41,7 @@ public class Index {
 		}
 		return null;
 	}
-	
+
 	public static HashSet<String> tokenize(File input) throws Exception {
 		// TODO Write body!
 		String path = input.getName();
@@ -46,22 +52,23 @@ public class Index {
 		{
 			String line = sc.next();
 			line = line.toLowerCase().replaceAll("[^a-z1-9']+", "");
-			result.add(line);
+			if(line.compareTo("")!=0)
+				result.add(line);
 		}
 		sc.close();
 		return result;
 	}
-	
+
 	private static int termToID()  
 	{
 		return termID++; 
 	}
-	
+
 	private static int docToID()
 	{
 		return docID++;
 	}
-	
+
 	//get the termid: frequency for each doc and stored in ./index/filename
 	private static void processContent(String words, String fileName)
 	{
@@ -77,11 +84,11 @@ public class Index {
 					Integer n = docWordList.get(word);
 					n = (n == null) ? 1: ++n;
 					docWordList.put(word, n);
-					
+
 					Integer m = allWordList.get(word);
 					m = (m == null) ? 1: ++n;
 					allWordList.put(word, n);
-					
+
 					if(m==1)
 					{
 						++numWords;
@@ -93,7 +100,7 @@ public class Index {
 			}
 		}
 		sc.close();
-		
+
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("./index/" + fileName + ".txt");
@@ -102,7 +109,7 @@ public class Index {
 			e.printStackTrace();
 			System.out.println("ERROR: processContent()" + "./index/" + fileName + ".txt" );
 		}
-	//	System.out.println(fileName);
+		//	System.out.println(fileName);
 		writer.println(docToDocID.get(fileName));
 		for(Map.Entry<String,Integer> entry : docWordList.entrySet())
 		{
@@ -115,12 +122,12 @@ public class Index {
 		writer.close();
 		docWordList = new HashMap<String, Integer>();
 	}
-	
+
 	private static void processFile()
 	{
 		File folder = new File("./doc/");
 		File [] listOfFiles = folder.listFiles();
-		
+
 		int size = listOfFiles.length;
 		for(int i = 0; i < size; ++i)
 		{
@@ -130,7 +137,7 @@ public class Index {
 			int docID = docToID();
 			docToDocID.put(filename, docID);
 			docIDToDoc.put(docID, filename);	
-			
+
 			try {
 				wordSrc = new Scanner(new File("./doc/" + filename ));
 			} catch (FileNotFoundException e) {
@@ -138,7 +145,7 @@ public class Index {
 				e.printStackTrace();
 				System.out.println("ERROR: processFile()" + "./doc/" + filename );
 			}
-			
+
 			String text = "";
 			while(wordSrc.hasNextLine())
 			{
@@ -146,24 +153,24 @@ public class Index {
 			}
 			processContent(text, filename);
 			wordSrc.close();
-			
-			
+
+
 		}
 	}
 
 	public static void startIndex()
 	{
 		processFile();
-//		System.out.println("docIDToDoc: " + docIDToDoc.toString());
-//		System.out.println("docToDocID: " + docToDocID.toString());
-//		System.out.println("termIDToTerm: " + termIDToTerm.toString());
-//		System.out.println("termToTermID: " + termToTermID.toString());
-		
+		//		System.out.println("docIDToDoc: " + docIDToDoc.toString());
+		//		System.out.println("docToDocID: " + docToDocID.toString());
+		//		System.out.println("termIDToTerm: " + termIDToTerm.toString());
+		//		System.out.println("termToTermID: " + termToTermID.toString());
+
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		startIndex();
-		
+
 		//number of document is the size of the folder
 		//number of unique words is the size of the list of all doc word
 		//output index to disk
