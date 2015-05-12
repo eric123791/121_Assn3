@@ -22,8 +22,7 @@ public class Index {
 
 	//termid:{[docid, frequency], [docid, frequency],....... }
 	public static Map<String, Map<String, Integer>> allWordList = new HashMap<String, Map<String, Integer>>();
-	//termid: frequency sigle doc
-	public static Map<String, Integer> docWordList = new HashMap<String, Integer>();
+	
 	//termid: frequency all doc
 	public static Map<String, Integer> allDocWordList = new HashMap<String, Integer>();
 	//docid: number of term
@@ -76,6 +75,8 @@ public class Index {
 	//get the termid: frequency for each doc and stored in ./index/filename
 	private static void processContent(String words, String fileName)
 	{
+		//termid: frequency sigle doc
+		Map<String, Integer> docWordList = new HashMap<String, Integer>();
 		Scanner  sc = new Scanner (words);
 		int termCount = 0;
 		while(sc.hasNext())
