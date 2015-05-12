@@ -24,8 +24,9 @@ public class Index {
 	public static Map<String, Map<String, Integer>> allWordList = new HashMap<String, Map<String, Integer>>();
 	//termid: frequency sigle doc
 	public static Map<String, Integer> docWordList = new HashMap<String, Integer>();
-	//	//termid: frequency all doc
+	//termid: frequency all doc
 	public static Map<String, Integer> allDocWordList = new HashMap<String, Integer>();
+	//docid: number of term
 	public static Map<String, Integer> docTerms = new HashMap<String, Integer> ();
 
 	//termid: term
