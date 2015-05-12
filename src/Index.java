@@ -26,6 +26,7 @@ public class Index {
 	public static Map<String, Integer> docWordList = new HashMap<String, Integer>();
 	//	//termid: frequency all doc
 	public static Map<String, Integer> allDocWordList = new HashMap<String, Integer>();
+	public static Map<String, Integer> docTerms = new HashMap<String, Integer> ();
 
 	//termid: term
 	private static Map<Integer, String> termIDToTerm = new HashMap<Integer, String>();
@@ -75,6 +76,7 @@ public class Index {
 	private static void processContent(String words, String fileName)
 	{
 		Scanner  sc = new Scanner (words);
+		int termCount = 0;
 		while(sc.hasNext())
 		{
 			String word = sc.next();
@@ -83,6 +85,7 @@ public class Index {
 			{
 				if(word.compareTo("") != 0)
 				{
+					termCount++;
 					Integer n = docWordList.get(word);
 					n = (n == null) ? 1: ++n;
 					docWordList.put(word, n);
@@ -102,6 +105,8 @@ public class Index {
 			}
 		}
 		sc.close();
+		
+		docTerms.put(docToDocID.get(fileName).toString(), termCount);
 
 		PrintWriter writer = null;
 		try {
@@ -216,7 +221,6 @@ public class Index {
 
 				//System.out.println(allWordList.get(temp[0]).toString());
 			}
-			System.out.println();
 		}
 
 		PrintWriter writer = null;
@@ -228,7 +232,7 @@ public class Index {
 
 		for (Map.Entry<String, Map<String, Integer>> entry : allWordList.entrySet())
 		{
-			writer.println(entry.getKey() + entry.getValue().toString());
+			writer.println(entry.getKey() + ":" + entry.getValue().toString());
 		}
 		writer.close();
 
