@@ -22,8 +22,10 @@ public class Index {
 
 	//termid:{[docid, frequency], [docid, frequency],....... }
 	public static Map<String, Map<String, Integer>> allWordList = new HashMap<String, Map<String, Integer>>();
-	//termid: frequency 
+	//termid: frequency sigle doc
 	public static Map<String, Integer> docWordList = new HashMap<String, Integer>();
+	//	//termid: frequency all doc
+	public static Map<String, Integer> allDocWordList = new HashMap<String, Integer>();
 
 	//termid: term
 	private static Map<Integer, String> termIDToTerm = new HashMap<Integer, String>();
@@ -84,13 +86,17 @@ public class Index {
 					Integer n = docWordList.get(word);
 					n = (n == null) ? 1: ++n;
 					docWordList.put(word, n);
+					
+					Integer m = allDocWordList.get(word);
+					m = (m == null) ? 1: ++m;
+					allDocWordList.put(word, m);
 
-					if(n==1)
+					if(m==1)
 					{
 						++numWords;
 						int id = termToID();
 						termToTermID.put(word, id);
-						termIDToTerm.put(id, word);	
+						termIDToTerm.put(id, word);			
 					}
 				}
 			}
@@ -103,27 +109,27 @@ public class Index {
 		} catch (FileNotFoundException e) {
 			new File("./frequency").mkdirs();
 		}
-		
+
 		try {
 			writer = new PrintWriter("./frequency/" + fileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		//	System.out.println(fileName);
-		
+
 		for(Map.Entry<String,Integer> entry : docWordList.entrySet())
 		{
 			String key = entry.getKey();
 			Integer id = termToTermID.get(key);
 			Integer value = entry.getValue();
-			writer.println(id+" : "+value);
-			//System.out.println(id+" : "+value);
+			writer.println(id+":"+value);
+			//System.out.println(id + " " + key + " " +value);
 		}
 		writer.close();
 		docWordList = new HashMap<String, Integer>();
 	}
 
-	private static void frequencyProcess()
+	private static void frequencyCaculate()
 	{
 		File folder = new File("./doc/");
 		File [] listOfFiles = folder.listFiles();
@@ -160,14 +166,14 @@ public class Index {
 				e1.printStackTrace();
 				System.out.println("ERROR AT JSON PARSE");
 			}
-			
+
 			Integer  docid = Integer.parseInt(doc.getId().substring(0, doc.getId().indexOf(".")));
 			docToDocID.put(filename, docid);
 			docIDToDoc.put(docid, filename);	
-	
+
 
 			wordSrc = new Scanner(doc.getText());
-			
+
 			String text = "";
 			while(wordSrc.hasNextLine())
 			{
@@ -178,9 +184,60 @@ public class Index {
 		}
 	}
 
+
+	private static void processFrequency()
+	{
+		File folder = new File("./frequency/");
+		File [] listOfFiles = folder.listFiles();
+
+		int size = listOfFiles.length;
+		for(int i = 0; i < size; ++i)
+		{
+			File file = listOfFiles[i];
+			String filename = file.getName();
+			Scanner sc = null;
+			try {
+				sc = new Scanner (new FileReader("./frequency/" + filename));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			//System.out.println(filename);
+			while(sc.hasNextLine())
+			{
+				String line = sc.nextLine();
+				String[] temp = line.split(":");
+				//System.out.print(termIDToTerm.get(Integer.parseInt(temp[0])) + " ");
+				if(allWordList.get(temp[0]) == null)
+				{
+					HashMap<String, Integer> temp1 = new HashMap<String, Integer> ();
+					allWordList.put(temp[0], temp1);
+				}
+				allWordList.get(temp[0]).put(docToDocID.get(filename).toString(), Integer.parseInt(temp[1]));
+
+				//System.out.println(allWordList.get(temp[0]).toString());
+			}
+			System.out.println();
+		}
+
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("test.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		for (Map.Entry<String, Map<String, Integer>> entry : allWordList.entrySet())
+		{
+			writer.println(entry.getKey() + entry.getValue().toString());
+		}
+		writer.close();
+
+
+	}
 	public static void startIndex()
 	{
-		frequencyProcess();
+		frequencyCaculate();
+		processFrequency();
 		//		System.out.println("docIDToDoc: " + docIDToDoc.toString());
 		//		System.out.println("docToDocID: " + docToDocID.toString());
 		//		System.out.println("termIDToTerm: " + termIDToTerm.toString());
