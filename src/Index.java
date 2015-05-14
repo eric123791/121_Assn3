@@ -22,7 +22,7 @@ public class Index {
 
 	//termid:{[docid, frequency], [docid, frequency],....... }
 	public static Map<String, Map<String, Integer>> allWordList = new HashMap<String, Map<String, Integer>>();
-	
+
 	//termid: frequency all doc
 	public static Map<String, Integer> allDocWordList = new HashMap<String, Integer>();
 	//docid: number of term
@@ -38,6 +38,8 @@ public class Index {
 	private static Map<Integer, String> docIDToDoc = new HashMap<Integer, String>();
 	//doc: docid
 	private static Map<String, Integer> docToDocID = new HashMap<String, Integer>();
+
+	public static Map<Integer, Map<Integer, Double>> termid2docidNTFIDF = new HashMap<Integer, Map<Integer, Double>> ();
 
 	private static HashSet<String> stopWords()
 	{
@@ -91,7 +93,7 @@ public class Index {
 					Integer n = docWordList.get(word);
 					n = (n == null) ? 1: ++n;
 					docWordList.put(word, n);
-					
+
 					Integer m = allDocWordList.get(word);
 					m = (m == null) ? 1: ++m;
 					allDocWordList.put(word, m);
@@ -107,7 +109,7 @@ public class Index {
 			}
 		}
 		sc.close();
-		
+
 		docTerms.put(docToDocID.get(fileName).toString(), termCount);
 
 		PrintWriter writer = null;
@@ -240,16 +242,93 @@ public class Index {
 
 
 	}
+
+	// calculate TF for single termid
+	// TF(t) = (Number of times term t appears in a document) / (Total number of terms in the document).
+	private static double calcTF(int termid, int docid) {
+		int termFreq = -1;
+		int totalTerm = -1;
+		termFreq = allWordList.get(Integer.toString(termid)).get(Integer.toString(docid));
+		totalTerm = docTerms.get(Integer.toString(docid));
+		return (double) termFreq/totalTerm;
+	}
+
+
+	// IDF(t) = log_e(Total number of documents / Number of documents with term t in it).
+	private static double calcIDF(int termid) {
+		int totalDoc = -1;
+		int totalDocContainsTerm = -1;
+		totalDoc = docTerms.size();
+		totalDocContainsTerm = allWordList.get(Integer.toString(termid)).size();
+		return Math.log10((double) totalDoc/totalDocContainsTerm);  // log_e or log_10?	
+	}
+	
+	private static void calcTFIDF() {
+		String freqPath = "./frequency/";
+
+		File folder = new File(freqPath);
+		File [] listOfFiles = folder.listFiles();
+
+		int size = listOfFiles.length;
+		for (int i = 0; i < size; ++i) {
+			File file = listOfFiles[i];
+			String filename = file.getName();
+			
+			int docid = Integer.parseInt(filename.split("[.]")[0]);
+			Scanner sc = null;
+
+			try {
+				sc = new Scanner(new FileReader (freqPath + filename));
+				while (sc.hasNextLine()) {
+					String tempstr = sc.nextLine();
+					String[] temstrList = tempstr.split(":");
+					int termid = Integer.parseInt(temstrList[0]);
+					
+					double tf = calcTF(termid, docid);
+					double idf = calcIDF(termid);
+					double tfidf = tf * idf;
+					
+					System.out.println("tf: " +tf );
+					System.out.println("idf: " +idf );
+					System.out.println("tfidf: " +tfidf );
+
+					if(termid2docidNTFIDF.get(termid) == null) {
+						Map<Integer, Double> tempMap = new HashMap<Integer, Double>();
+						termid2docidNTFIDF.put(termid,tempMap);
+					}
+					termid2docidNTFIDF.get(termid).put(docid, tfidf);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+
+		}
+
+		printTFIDFs();
+
+	}
+	private static void printTFIDFs() {
+		for (Map.Entry<Integer, Map<Integer, Double>> entry : termid2docidNTFIDF.entrySet())
+		{
+			System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+		}
+	}
+
 	public static void startIndex()
 	{
 		frequencyCaculate();
 		processFrequency();
+		calcTFIDF();
 		//		System.out.println("docIDToDoc: " + docIDToDoc.toString());
 		//		System.out.println("docToDocID: " + docToDocID.toString());
 		//		System.out.println("termIDToTerm: " + termIDToTerm.toString());
 		//		System.out.println("termToTermID: " + termToTermID.toString());
 
 	}
+
+	
 	public static void main(String[] args) {
 		startIndex();
 
