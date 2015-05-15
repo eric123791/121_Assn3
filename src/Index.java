@@ -1,13 +1,18 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -176,7 +181,7 @@ public class Index {
 				System.out.println("ERROR AT JSON PARSE");
 			}
 
-			Integer  docid = Integer.parseInt(doc.getId().substring(0, doc.getId().indexOf(".")));
+			Integer  docid = Integer.parseInt(doc.getId().split("[.]")[0]);
 			docToDocID.put(filename, docid);
 			docIDToDoc.put(docid, filename);	
 
@@ -220,13 +225,17 @@ public class Index {
 				{
 					HashMap<String, Integer> temp1 = new HashMap<String, Integer> ();
 					allWordList.put(temp[0], temp1);
+					allWordList.get(temp[0]).put(docToDocID.get(filename).toString(), Integer.parseInt(temp[1]));
 				}
-				allWordList.get(temp[0]).put(docToDocID.get(filename).toString(), Integer.parseInt(temp[1]));
+				else
+					allWordList.get(temp[0]).put(docToDocID.get(filename).toString(), Integer.parseInt(temp[1]));
+				
 
 				//System.out.println(allWordList.get(temp[0]).toString());
 			}
 		}
 
+		/*
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("test.txt");
@@ -239,6 +248,7 @@ public class Index {
 			writer.println(entry.getKey() + ":" + entry.getValue().toString());
 		}
 		writer.close();
+		*/
 
 
 	}
@@ -262,7 +272,7 @@ public class Index {
 		totalDocContainsTerm = allWordList.get(Integer.toString(termid)).size();
 		return Math.log10((double) totalDoc/totalDocContainsTerm);  // log_e or log_10?	
 	}
-	
+
 	private static void calcTFIDF() {
 		String freqPath = "./frequency/";
 
@@ -273,7 +283,7 @@ public class Index {
 		for (int i = 0; i < size; ++i) {
 			File file = listOfFiles[i];
 			String filename = file.getName();
-			
+
 			int docid = Integer.parseInt(filename.split("[.]")[0]);
 			Scanner sc = null;
 
@@ -283,14 +293,10 @@ public class Index {
 					String tempstr = sc.nextLine();
 					String[] temstrList = tempstr.split(":");
 					int termid = Integer.parseInt(temstrList[0]);
-					
+
 					double tf = calcTF(termid, docid);
 					double idf = calcIDF(termid);
 					double tfidf = tf * idf;
-					
-					System.out.println("tf: " +tf );
-					System.out.println("idf: " +idf );
-					System.out.println("tfidf: " +tfidf );
 
 					if(termid2docidNTFIDF.get(termid) == null) {
 						Map<Integer, Double> tempMap = new HashMap<Integer, Double>();
@@ -310,16 +316,27 @@ public class Index {
 
 	}
 	private static void printTFIDFs() {
-		for (Map.Entry<Integer, Map<Integer, Double>> entry : termid2docidNTFIDF.entrySet())
-		{
-			System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("test.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
+
+		for (Entry<Integer, Map<Integer, Double>> entry : termid2docidNTFIDF.entrySet())
+		{
+			writer.println(entry.getKey() + ":" + entry.getValue().toString());
+		}
+		writer.close();
 	}
 
 	public static void startIndex()
 	{
+		System.out.println("frequencyCaculate");
 		frequencyCaculate();
+		System.out.println("processFrequency");
 		processFrequency();
+		System.out.println("calcTFIDF");
 		calcTFIDF();
 		//		System.out.println("docIDToDoc: " + docIDToDoc.toString());
 		//		System.out.println("docToDocID: " + docToDocID.toString());
@@ -328,15 +345,32 @@ public class Index {
 
 	}
 
-	
-	public static void main(String[] args) {
-		startIndex();
 
-		//number of document: is the size of the folder
+	public static void main(String[] args) {
+		long start = System.currentTimeMillis()/1000;
+		startIndex();
+		long end = System.currentTimeMillis()/1000;
+		long totalTime = end - start;
+		
+		LocalTime timeOfDay = LocalTime.ofSecondOfDay(totalTime);
+		String time = timeOfDay.toString();
+
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("Answer.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		//number of document: is the size map that keep track term coutn per doc
+		writer.println(docTerms.size());
 		//number of unique words: is the size of the list of all doc word
+		writer.println(allWordList.size());
 		//output index to disk
 		//time of the whole process
-
+		writer.println(time);
+		
+		writer.close();
 	}
 
 }
