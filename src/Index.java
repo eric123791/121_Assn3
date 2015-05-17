@@ -235,22 +235,6 @@ public class Index {
 			}
 		}
 
-		/*
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter("test.txt");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		for (Map.Entry<String, Map<String, Integer>> entry : allWordList.entrySet())
-		{
-			writer.println(entry.getKey() + ":" + entry.getValue().toString());
-		}
-		writer.close();
-		*/
-
-
 	}
 
 	// calculate TF for single termid
@@ -318,7 +302,7 @@ public class Index {
 	private static void printTFIDFs() {
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter("test.txt");
+			writer = new PrintWriter("output.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
