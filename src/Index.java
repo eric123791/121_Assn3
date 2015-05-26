@@ -229,7 +229,7 @@ public class Index {
 				}
 				else
 					allWordList.get(temp[0]).put(docToDocID.get(filename).toString(), Integer.parseInt(temp[1]));
-				
+
 
 				//System.out.println(allWordList.get(temp[0]).toString());
 			}
@@ -314,6 +314,91 @@ public class Index {
 		writer.close();
 	}
 
+	private static void printindex()
+	{
+		//docidtodoc
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("./mapping/" + "docidtodoc.txt");
+		} catch (FileNotFoundException e) {
+			new File("./mapping").mkdirs();
+		}
+
+		try {
+			writer = new PrintWriter("./mapping/" + "docidtodoc.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		for(Entry<Integer, String> entry : docIDToDoc.entrySet())
+		{
+			Integer key = entry.getKey();
+			String value = entry.getValue();
+			writer.println(key +":"+ value);
+		}
+		writer.close();
+		
+		//docterms
+		try {
+			writer = new PrintWriter("./mapping/" + "docterms.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		for(Entry<String, Integer> entry : docTerms.entrySet())
+		{
+			String key = entry.getKey();
+			Integer value = entry.getValue();
+			writer.println(key +":"+ value);
+		}
+		writer.close();
+		
+		//doctodocid
+		try {
+			writer = new PrintWriter("./mapping/" + "doctodocid.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		for(Entry<String, Integer> entry : docToDocID.entrySet())
+		{
+			String key = entry.getKey();
+			Integer value = entry.getValue();
+			writer.println(key +":"+ value);
+		}
+		writer.close();
+		
+		//termidtoterm
+		try {
+			writer = new PrintWriter("./mapping/" + "termidtoterm.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		for(Entry<Integer, String> entry : termIDToTerm.entrySet())
+		{
+			Integer key = entry.getKey();
+			String value = entry.getValue();
+			writer.println(key +":"+ value);
+		}
+		writer.close();
+		
+		//termtoermid
+		try {
+			writer = new PrintWriter("./mapping/" + "termtotermid.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		for(Entry<String, Integer> entry : termToTermID.entrySet())
+		{
+			String key = entry.getKey();
+			Integer value = entry.getValue();
+			writer.println(key +":"+ value);
+		}
+		writer.close();
+
+	}
 	public static void startIndex()
 	{
 		System.out.println("frequencyCaculate");
@@ -322,6 +407,7 @@ public class Index {
 		processFrequency();
 		System.out.println("calcTFIDF");
 		calcTFIDF();
+		printindex();
 		//		System.out.println("docIDToDoc: " + docIDToDoc.toString());
 		//		System.out.println("docToDocID: " + docToDocID.toString());
 		//		System.out.println("termIDToTerm: " + termIDToTerm.toString());
@@ -335,7 +421,7 @@ public class Index {
 		startIndex();
 		long end = System.currentTimeMillis()/1000;
 		long totalTime = end - start;
-		
+
 		LocalTime timeOfDay = LocalTime.ofSecondOfDay(totalTime);
 		String time = timeOfDay.toString();
 
@@ -345,7 +431,7 @@ public class Index {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		//number of document: is the size map that keep track term coutn per doc
 		writer.println(docTerms.size());
 		//number of unique words: is the size of the list of all doc word
@@ -353,7 +439,7 @@ public class Index {
 		//output index to disk
 		//time of the whole process
 		writer.println(time);
-		
+
 		writer.close();
 	}
 
