@@ -302,7 +302,7 @@ public class Index {
 	private static void printTFIDFs() {
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter("output.txt");
+			writer = new PrintWriter("tfidf.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -329,7 +329,7 @@ public class Index {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		for(Entry<Integer, String> entry : docIDToDoc.entrySet())
 		{
 			Integer key = entry.getKey();
@@ -337,14 +337,14 @@ public class Index {
 			writer.println(key +":"+ value);
 		}
 		writer.close();
-		
+
 		//docterms
 		try {
 			writer = new PrintWriter("./mapping/" + "docterms.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		for(Entry<String, Integer> entry : docTerms.entrySet())
 		{
 			String key = entry.getKey();
@@ -352,14 +352,14 @@ public class Index {
 			writer.println(key +":"+ value);
 		}
 		writer.close();
-		
+
 		//doctodocid
 		try {
 			writer = new PrintWriter("./mapping/" + "doctodocid.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		for(Entry<String, Integer> entry : docToDocID.entrySet())
 		{
 			String key = entry.getKey();
@@ -367,14 +367,14 @@ public class Index {
 			writer.println(key +":"+ value);
 		}
 		writer.close();
-		
+
 		//termidtoterm
 		try {
 			writer = new PrintWriter("./mapping/" + "termidtoterm.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		for(Entry<Integer, String> entry : termIDToTerm.entrySet())
 		{
 			Integer key = entry.getKey();
@@ -382,14 +382,14 @@ public class Index {
 			writer.println(key +":"+ value);
 		}
 		writer.close();
-		
+
 		//termtoermid
 		try {
 			writer = new PrintWriter("./mapping/" + "termtotermid.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		for(Entry<String, Integer> entry : termToTermID.entrySet())
 		{
 			String key = entry.getKey();
@@ -398,15 +398,30 @@ public class Index {
 		}
 		writer.close();
 
+
+		try {
+			writer = new PrintWriter("./mapping/" + "allwordlist.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		for (Entry<String, Map<String, Integer>> entry : allWordList.entrySet())
+		{
+			writer.println(entry.getKey() + ":" + entry.getValue().toString());
+		}
+		writer.close();
+
+
 	}
 	public static void startIndex()
 	{
-		System.out.println("frequencyCaculate");
+		System.out.println("Caculate frequency");
 		frequencyCaculate();
-		System.out.println("processFrequency");
+		System.out.println("Frequency process");
 		processFrequency();
-		System.out.println("calcTFIDF");
+		System.out.println("Caculate TFIDF");
 		calcTFIDF();
+		System.out.println("index priting");
 		printindex();
 		//		System.out.println("docIDToDoc: " + docIDToDoc.toString());
 		//		System.out.println("docToDocID: " + docToDocID.toString());
