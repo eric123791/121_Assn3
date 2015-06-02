@@ -33,6 +33,8 @@ public class Index {
 	//docid: number of term
 	public static Map<String, Integer> docTerms = new HashMap<String, Integer> ();
 
+	//id to url
+	public static Map<Integer, String> urlList = new HashMap<Integer, String>();
 	//termid: term
 	private static Map<Integer, String> termIDToTerm = new HashMap<Integer, String>();
 	//term: termid
@@ -182,6 +184,8 @@ public class Index {
 			}
 
 			Integer  docid = Integer.parseInt(doc.getId().split("[.]")[0]);
+			String url = doc.get_id();
+			urlList.put(docid, url);
 			docToDocID.put(filename, docid);
 			docIDToDoc.put(docid, filename);	
 
@@ -296,8 +300,6 @@ public class Index {
 
 		}
 
-		printTFIDFs();
-
 	}
 	private static void printTFIDFs() {
 		PrintWriter writer = null;
@@ -316,6 +318,9 @@ public class Index {
 
 	private static void printindex()
 	{
+		//tfidf
+		printTFIDFs();
+		
 		//docidtodoc
 		PrintWriter writer = null;
 		try {
@@ -408,6 +413,18 @@ public class Index {
 		for (Entry<String, Map<String, Integer>> entry : allWordList.entrySet())
 		{
 			writer.println(entry.getKey() + ":" + entry.getValue().toString());
+		}
+		writer.close();
+		
+		try {
+			writer = new PrintWriter("./mapping/" + "urllist.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		for (Entry<Integer, String> entry : urlList.entrySet())
+		{
+			writer.println(entry.getKey() + ":" + entry.getValue());
 		}
 		writer.close();
 

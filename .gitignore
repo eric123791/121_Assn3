@@ -5,3 +5,6 @@ output.txt
 test/
 mapping/
 crawlStorageFolder/
+test/
+temp/
+tfidf.txt
