@@ -1,0 +1,130 @@
+Report
+Author
+  [Name] [ID], [Name] [ID], and [Name] [ID]
+
+//Format:
+[Doc Name] [score based on Weighted Term Frequency] [url]
+
+
+//test  1: machine learning.
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+46540.txt	0.1442358974529737	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/844/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/learning/dtree/Rebuilder.java
+49620.txt	0.1435592446586036	http://ngs.ics.uci.edu/experiential-education/
+46049.txt	0.14351602057767174	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846
+46368.txt	0.14341967199451114	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/EventSubscriber.java
+46387.txt	0.14335769356634825	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/gui/AttentionWindow.java
+35755.txt	0.1432100349500601	http://www.ics.uci.edu/~ejw/authoring/orem/namespace/tsld011.htm
+46505.txt	0.1429875812569216	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/838/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/learning/dtree/Rebuilder.java
+46421.txt	0.14296539431994812	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/learning/dtree/Rebuilder.java
+46793.txt	0.14290749396361352	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/361
+
+//test  2: mondego.
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+46540.txt	0.1442358974529737	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/844/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/learning/dtree/Rebuilder.java
+49620.txt	0.1435592446586036	http://ngs.ics.uci.edu/experiential-education/
+46049.txt	0.14351602057767174	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846
+46368.txt	0.14341967199451114	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/EventSubscriber.java
+46387.txt	0.14335769356634825	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/gui/AttentionWindow.java
+35755.txt	0.1432100349500601	http://www.ics.uci.edu/~ejw/authoring/orem/namespace/tsld011.htm
+46505.txt	0.1429875812569216	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/838/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/learning/dtree/Rebuilder.java
+46421.txt	0.14296539431994812	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/learning/dtree/Rebuilder.java
+46793.txt	0.14290749396361352	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/361
+
+//test  3: software engineering.
+32004.txt	0.14768456902550015	http://vcp.ics.uci.edu/biblio/author/138
+34299.txt	0.14745918053108736	http://www.ics.uci.edu/~irus/css/98/mini-tutorial/tsld006.htm
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+46540.txt	0.1442358974529737	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/844/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/learning/dtree/Rebuilder.java
+49620.txt	0.1435592446586036	http://ngs.ics.uci.edu/experiential-education/
+46049.txt	0.14351602057767174	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846
+46368.txt	0.14341967199451114	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/EventSubscriber.java
+46387.txt	0.14335769356634825	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/changeset/846/nomatic/trunk/service/edu/uci/ics/luci/nomatic/service/gui/AttentionWindow.java
+32652.txt	0.1433348778122169	http://www.ics.uci.edu/~irus/bart/flyers/99/presentations/july99-neno/tsld003.htm
+35755.txt	0.1432100349500601	http://www.ics.uci.edu/~ejw/authoring/orem/namespace/tsld011.htm
+
+//test  4: security.
+34207.txt	0.1605053889698796	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref-test/swirl/workspace/security/package-frame.html
+32556.txt	0.1528660307232519	http://www.ics.uci.edu/~projects/DataGuard/javadoc/org/itr_rescue/dataGuard/encryption/package-frame.html
+32004.txt	0.14768456902550015	http://vcp.ics.uci.edu/biblio/author/138
+34299.txt	0.14745918053108736	http://www.ics.uci.edu/~irus/css/98/mini-tutorial/tsld006.htm
+35011.txt	0.14727334411194212	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-tree.html
+34175.txt	0.14713940994290736	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref/swirl/workspace/security/package-frame.html
+33964.txt	0.14613137302483267	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-frame.html
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+34149.txt	0.14457001848629192	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/wiki/Security
+35535.txt	0.14446837119743305	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-use.html
+
+//test  5: student affairs
+34207.txt	0.1605053889698796	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref-test/swirl/workspace/security/package-frame.html
+32556.txt	0.1528660307232519	http://www.ics.uci.edu/~projects/DataGuard/javadoc/org/itr_rescue/dataGuard/encryption/package-frame.html
+32004.txt	0.14768456902550015	http://vcp.ics.uci.edu/biblio/author/138
+34299.txt	0.14745918053108736	http://www.ics.uci.edu/~irus/css/98/mini-tutorial/tsld006.htm
+35011.txt	0.14727334411194212	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-tree.html
+34175.txt	0.14713940994290736	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref/swirl/workspace/security/package-frame.html
+33964.txt	0.14613137302483267	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-frame.html
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+34149.txt	0.14457001848629192	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/wiki/Security
+35535.txt	0.14446837119743305	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-use.html
+
+//test  6: graduate courses
+34207.txt	0.1605053889698796	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref-test/swirl/workspace/security/package-frame.html
+32556.txt	0.1528660307232519	http://www.ics.uci.edu/~projects/DataGuard/javadoc/org/itr_rescue/dataGuard/encryption/package-frame.html
+7767.txt	0.1478176270148857	http://www.ics.uci.edu/~vgunes/courses.htm
+32004.txt	0.14768456902550015	http://vcp.ics.uci.edu/biblio/author/138
+34299.txt	0.14745918053108736	http://www.ics.uci.edu/~irus/css/98/mini-tutorial/tsld006.htm
+35011.txt	0.14727334411194212	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-tree.html
+34175.txt	0.14713940994290736	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref/swirl/workspace/security/package-frame.html
+33964.txt	0.14613137302483267	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-frame.html
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+34149.txt	0.14457001848629192	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/wiki/Security
+
+//test  7: informatics
+34207.txt	0.1605053889698796	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref-test/swirl/workspace/security/package-frame.html
+32556.txt	0.1528660307232519	http://www.ics.uci.edu/~projects/DataGuard/javadoc/org/itr_rescue/dataGuard/encryption/package-frame.html
+7767.txt	0.1478176270148857	http://www.ics.uci.edu/~vgunes/courses.htm
+32004.txt	0.14768456902550015	http://vcp.ics.uci.edu/biblio/author/138
+34299.txt	0.14745918053108736	http://www.ics.uci.edu/~irus/css/98/mini-tutorial/tsld006.htm
+35011.txt	0.14727334411194212	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-tree.html
+34175.txt	0.14713940994290736	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref/swirl/workspace/security/package-frame.html
+33964.txt	0.14613137302483267	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-frame.html
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+34149.txt	0.14457001848629192	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/wiki/Security
+
+//test   8: REST
+34207.txt	0.1605053889698796	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref-test/swirl/workspace/security/package-frame.html
+32556.txt	0.1528660307232519	http://www.ics.uci.edu/~projects/DataGuard/javadoc/org/itr_rescue/dataGuard/encryption/package-frame.html
+7767.txt	0.1478176270148857	http://www.ics.uci.edu/~vgunes/courses.htm
+32004.txt	0.14768456902550015	http://vcp.ics.uci.edu/biblio/author/138
+34299.txt	0.14745918053108736	http://www.ics.uci.edu/~irus/css/98/mini-tutorial/tsld006.htm
+35011.txt	0.14727334411194212	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-tree.html
+34175.txt	0.14713940994290736	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref/swirl/workspace/security/package-frame.html
+33964.txt	0.14613137302483267	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-frame.html
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+34149.txt	0.14457001848629192	http://djp3-pc2.ics.uci.edu/LUCICodeRepository/nomaticIM/wiki/Security
+
+//test  9: computer games
+34207.txt	0.1605053889698796	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref-test/swirl/workspace/security/package-frame.html
+32556.txt	0.1528660307232519	http://www.ics.uci.edu/~projects/DataGuard/javadoc/org/itr_rescue/dataGuard/encryption/package-frame.html
+7767.txt	0.1478176270148857	http://www.ics.uci.edu/~vgunes/courses.htm
+32004.txt	0.14768456902550015	http://vcp.ics.uci.edu/biblio/author/138
+34299.txt	0.14745918053108736	http://www.ics.uci.edu/~irus/css/98/mini-tutorial/tsld006.htm
+35011.txt	0.14727334411194212	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-tree.html
+34175.txt	0.14713940994290736	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref/swirl/workspace/security/package-frame.html
+33964.txt	0.14613137302483267	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-frame.html
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+49063.txt	0.1448887147166436	http://ngs.ics.uci.edu/video-games-in-academia/
+
+//test 10: information retrieval
+34207.txt	0.1605053889698796	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref-test/swirl/workspace/security/package-frame.html
+32556.txt	0.1528660307232519	http://www.ics.uci.edu/~projects/DataGuard/javadoc/org/itr_rescue/dataGuard/encryption/package-frame.html
+35217.txt	0.14948301302253925	http://www.ics.uci.edu/~ejw/authoring/www6/tsld030.htm
+7767.txt	0.1478176270148857	http://www.ics.uci.edu/~vgunes/courses.htm
+32004.txt	0.14768456902550015	http://vcp.ics.uci.edu/biblio/author/138
+34299.txt	0.14745918053108736	http://www.ics.uci.edu/~irus/css/98/mini-tutorial/tsld006.htm
+35011.txt	0.14727334411194212	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-tree.html
+34175.txt	0.14713940994290736	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/xref/swirl/workspace/security/package-frame.html
+33964.txt	0.14613137302483267	http://drzaius.ics.uci.edu/~swirl/impromptu-0.20/apidocs/swirl/workspace/security/package-frame.html
+36120.txt	0.14511668437867592	http://www.ics.uci.edu/~pazzani/Slides/BSEJ/tsld013.htm
+
+
+Finish time: 130s.
