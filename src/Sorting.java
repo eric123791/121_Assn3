@@ -1,4 +1,6 @@
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -328,10 +330,19 @@ public class Sorting {
 	
 	public static void main(String[] args) {
 		long start = System.currentTimeMillis()/1000;
+		String myString = "";
 		restore();
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("./report.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		// test1
-		System.out.println("\ntest1: machine learning.");
+		myString = "//test  1: machine learning.";
+		System.out.println("\n" + myString);
+		writer.println(myString);
 		ArrayList<String> test = new ArrayList<String>();
 		ArrayList<String> result = new ArrayList<String>();
 		test.add("machine");
@@ -339,38 +350,127 @@ public class Sorting {
 		result = getFinalResult(test);
 		for (String s : result) {
 			System.out.println(s);
+			writer.println(s);
 		}
 
 		// test2
-		System.out.println("\ntest2: mondego.");
+		myString = "\n//test  2: mondego.";
+		System.out.println(myString);
+		writer.println(myString);
 		test.clear();
 		test.add("mondego");
 		result = getFinalResult(test);
 		for (String s : result) {
 			System.out.println(s);
+			writer.println(s);
 		}
 
 		// test3
-		System.out.println("\ntest3: software engineering.");
+		myString = "\n//test  3: software engineering.";
+		System.out.println(myString);
+		writer.println(myString);
 		test.clear();
 		test.add("software");
 		test.add("engineering");
 		result = getFinalResult(test);
 		for (String s : result) {
 			System.out.println(s);
+			writer.println(s);
 		}
 		
 		// test4
-		System.out.println("\ntest4: security.");
+		myString = "\n//test  4: security.";
+		System.out.println(myString);
+		writer.println(myString);
 		test.clear();
 		test.add("security");
 		result = getFinalResult(test);
 		for (String s : result) {
 			System.out.println(s);
+			writer.println(s);
 		}
 		
+		// test5
+		myString = "\n//test  5: student affairs";
+		System.out.println(myString);
+		writer.println(myString);
+		test.clear();
+		test.add("student");
+		test.add("affairs");
+		result = getFinalResult(test);
+		for (String s : result) {
+			System.out.println(s);
+			writer.println(s);
+		}
+		
+		// test6
+		myString = "\n//test  6: graduate courses";
+		System.out.println(myString);
+		writer.println(myString);
+		test.clear();
+		test.add("graduate");
+		test.add("courses");
+		result = getFinalResult(test);
+		for (String s : result) {
+			System.out.println(s);
+			writer.println(s);
+		}
+		
+		// test7
+		myString = "\n//test  7: informatics";
+		System.out.println(myString);
+		writer.println(myString);
+		test.clear();
+		test.add("informatics");
+		result = getFinalResult(test);
+		for (String s : result) {
+			System.out.println(s);
+			writer.println(s);
+		}
+		
+		// test8
+		myString = "\n//test   8: REST";
+		System.out.println(myString);
+		writer.println(myString);
+		test.clear();
+		test.add("rest");
+		result = getFinalResult(test);
+		for (String s : result) {
+			System.out.println(s);
+			writer.println(s);
+		}
+		
+		// test9
+		myString = "\n//test  9: computer games";
+		System.out.println(myString);
+		writer.println(myString);
+		test.clear();
+		test.add("computer");
+		test.add("games");
+		result = getFinalResult(test);
+		for (String s : result) {
+			System.out.println(s);
+			writer.println(s);
+		}
+		
+		// test10
+		myString = "\n//test 10: information retrieval";
+		System.out.println(myString);
+		writer.println(myString);
+		test.clear();
+		test.add("information");
+		test.add("retrieval");
+		result = getFinalResult(test);
+		for (String s : result) {
+			System.out.println(s);
+			writer.println(s);
+		}
+
 		long end = System.currentTimeMillis()/1000;
 		long totalTime = end - start;
-		System.out.println("Finish time: " + totalTime + "s.");
+		myString = "Finish time: " + Long.toString(totalTime) + "s.";
+		writer.println("\n\n" + myString);
+		writer.close();
+		System.out.println(myString);
 	}
 }
